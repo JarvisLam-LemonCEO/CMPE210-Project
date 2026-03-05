@@ -92,7 +92,6 @@ sudo ovs-ofctl -O OpenFlow13 dump-flows s1
 ```
 You will see rules installed by the controller.
 
---------------------------------------------------------
 # Step 2 — Implement a working baseline load balancer:
 - Client sends traffic to VIP (example: 10.0.0.100 )
 - Ryu chooses one backend server ( 10.0.0.2/.3/.4 )
