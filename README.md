@@ -1,4 +1,8 @@
-# Spring 2026  CMPE 210 Course Project
+# SJSU Spring 2026 CMPE 210 Course Project
+Members:
+1. Hei Lam
+2. Weiyu Wang
+   
 # Step 1 — Set Up SDN Environment and Basic Topology
 ### Goal
 Create a simple network where:
@@ -92,6 +96,7 @@ sudo ovs-ofctl -O OpenFlow13 dump-flows s1
 ```
 You will see rules installed by the controller.
 
+
 # Step 2 — Implement a working baseline load balancer:
 - Client sends traffic to VIP (example: 10.0.0.100 )
 - Ryu chooses one backend server ( 10.0.0.2/.3/.4 )
@@ -156,7 +161,7 @@ sudo ovs-ofctl -O OpenFlow13 dump-flows s1
 ```
 You should see forward rules matching ipv4_dst=10.0.0.100,tcp_dst=8000 and reverse rules matching ipv4_src=10.0.0.2/3/4,tcp_src=8000.
 
-# Step 3 -- Least-Loaded SDN Load Balancer
+# Step 3 — Least-Loaded SDN Load Balancer
 ### Goal
 Replace the server selection logic:
 ```bash
@@ -202,7 +207,7 @@ Tip: generate many new flows (new TCP source ports):
 mininet> h1 bash -lc 'for i in $(seq 1 20); do curl --no-keepalive -s -o /dev/null 10.0.0.100:8000; done'
 ```
 
-# Step 4 -- ML-Based Backend Selection (Predict Best server)
+# Step 4 — ML-Based Backend Selection (Predict Best server)
 This step is where you turn your controller into an ML-based selector:
 - The controller extracts real-time features (port utilization, drops, active-flow count) for each backend.
 - A trained model predicts expected latency per backend.
