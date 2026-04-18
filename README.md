@@ -172,8 +172,57 @@ LeastLoaded select: ... loads={...}
 ```
 # Step 4 — ML-Based Backend Selection
 
-(No change — structure remains same)
+## Goal
 
+Use machine learning to dynamically select the best backend server based on runtime conditions.
+
+---
+
+## Train Model
+
+```bash
+python3 train_model.py
+```
+The script trains multiple regression models:
+-Decision Tree Regressor
+-Random Forest Regressor
+-Ridge Regression
+It evaluates each model using RMSE (Root Mean Square Error)
+The best-performing model is selected based on RMSE.
+
+The trained model is saved as:
+
+```bash
+model.joblib
+```
+## Run ML Controller
+
+```bash
+ryu-manager ml_lb.py
+```
+
+The controller uses the trained model to:
+Predict the latency of each backend server
+Select the backend with the lowest predicted latency
+Additional penalties are applied to prevent load imbalance
+
+## Test
+```bash
+h1 curl --no-keepalive 10.0.0.100:8000
+```
+
+Run multiple times to observe dynamic backend selection.
+
+## Key Idea
+
+Instead of using fixed strategies such as Round Robin or Least Loaded,
+the ML-based approach predicts performance using real-time features, including:
+
+-traffic rate
+-active flows
+-load imbalance
+
+This enables more adaptive and efficient load balancing decisions.
 
 
 # Step 5 — Experiment Suite
@@ -220,6 +269,9 @@ ryu-manager lb_nat_rr.py
 
 # For Least Loaded
 ryu-manager lb_least_loaded.py
+
+#You can also benchmark the ML-based controller using:
+ryu-manager ml_lb.py
 ```
 2. Start Mininet
    Inside Mininet
