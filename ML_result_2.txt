@@ -1,0 +1,20 @@
+[05/04/26]seed@VM:~/CMPE210-Project-main$ python3 train_model.py
+decision_tree RMSE: 34.358332
+random_forest RMSE: 33.674146
+ridge RMSE: 7.047608
+Training complete
+Selected model: ridge
+MAE:  5.775571
+RMSE: 7.047608
+Saved model to /home/seed/CMPE210-Project-main/model.joblib
+[05/04/26]seed@VM:~/CMPE210-Project-main$ ryu-manager ml_lb.py
+loading app ml_lb.py
+loading app ryu.controller.ofp_handler
+instantiating app ml_lb.py of MLLB
+Loaded ML model from /home/seed/CMPE210-Project-main/model.joblib
+instantiating app ryu.controller.ofp_handler of OFPHandler
+ML LB switch connected: dpid=1
+ML LB select: 10.0.0.1:32938 -> 10.0.0.4 policy=ml_pred pred=4.701981 flows={'10.0.0.2': 0, '10.0.0.3': 2, '10.0.0.4': 8} tx_share=0.565 rx_share=0.839
+ML LB select: 10.0.0.1:33018 -> 10.0.0.4 policy=ml_pred pred=4.940084 flows={'10.0.0.2': 0, '10.0.0.3': 7, '10.0.0.4': 13} tx_share=0.510 rx_share=0.497
+ML LB select: 10.0.0.1:53236 -> 10.0.0.4 policy=ml_pred pred=4.273098 flows={'10.0.0.2': 1, '10.0.0.3': 0, '10.0.0.4': 1} tx_share=0.035 rx_share=0.000
+ML LB select: 10.0.0.1:53320 -> 10.0.0.4 policy=ml_pred pred=4.775570 flows={'10.0.0.2': 1, '10.0.0.3': 2, '10.0.0.4': 9} tx_share=0.724 rx_share=0.768
