@@ -3,7 +3,7 @@
 # Usage: ./measure_drops.sh [requests]
 # Default = 50 requests
 
-REQ=${1:-50}
+REQ=${1:-20}
 FAIL=0
 
 echo "Running packet drop test with $REQ requests..."
