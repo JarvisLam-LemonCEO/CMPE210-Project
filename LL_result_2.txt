@@ -1,0 +1,10 @@
+[05/04/26]seed@VM:~/CMPE210-Project-main$ ryu-manager lb_least_loaded.py
+loading app lb_least_loaded.py
+loading app ryu.controller.ofp_handler
+instantiating app lb_least_loaded.py of NatLeastLoadedLB
+instantiating app ryu.controller.ofp_handler of OFPHandler
+Switch connected: dpid=1
+LeastLoaded select: 10.0.0.1:49342 -> 10.0.0.2:8000 loads={'10.0.0.2': 1, '10.0.0.3': 0, '10.0.0.4': 0}
+LeastLoaded select: 10.0.0.1:49356 -> 10.0.0.3:8000 loads={'10.0.0.2': 1, '10.0.0.3': 1, '10.0.0.4': 0}
+LeastLoaded select: 10.0.0.1:49358 -> 10.0.0.4:8000 loads={'10.0.0.2': 1, '10.0.0.3': 1, '10.0.0.4': 1}
+LeastLoaded select: 10.0.0.1:39812 -> 10.0.0.2:8000 loads={'10.0.0.2': 2, '10.0.0.3': 1, '10.0.0.4': 1}

@@ -1,0 +1,10 @@
+[05/04/26]seed@VM:~/CMPE210-Project-main$ ryu-manager lb_nat_rr.py
+loading app lb_nat_rr.py
+loading app ryu.controller.ofp_handler
+instantiating app lb_nat_rr.py of NatRoundRobinLB
+instantiating app ryu.controller.ofp_handler of OFPHandler
+Connected: dpid=1
+RR LB: 10.0.0.1:60860 -> VIP:8000 ==> 10.0.0.2:8000 (port 2)
+RR LB: 10.0.0.1:60874 -> VIP:8000 ==> 10.0.0.3:8000 (port 3)
+RR LB: 10.0.0.1:60886 -> VIP:8000 ==> 10.0.0.4:8000 (port 4)
+RR LB: 10.0.0.1:51794 -> VIP:8000 ==> 10.0.0.2:8000 (port 2)

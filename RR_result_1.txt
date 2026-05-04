@@ -1,0 +1,251 @@
+[05/04/26]seed@VM:~/CMPE210-Project-main$ sudo mn -c
+*** Removing excess controllers/ofprotocols/ofdatapaths/pings/noxes
+killall controller ofprotocol ofdatapath ping nox_core lt-nox_core ovs-openflowd ovs-controller udpbwtest mnexec ivs 2> /dev/null
+killall -9 controller ofprotocol ofdatapath ping nox_core lt-nox_core ovs-openflowd ovs-controller udpbwtest mnexec ivs 2> /dev/null
+pkill -9 -f "sudo mnexec"
+*** Removing junk from /tmp
+rm -f /tmp/vconn* /tmp/vlogs* /tmp/*.out /tmp/*.log
+*** Removing old X11 tunnels
+*** Removing excess kernel datapaths
+ps ax | egrep -o 'dp[0-9]+' | sed 's/dp/nl:/'
+***  Removing OVS datapaths
+ovs-vsctl --timeout=1 list-br
+ovs-vsctl --timeout=1 list-br
+*** Removing all links of the pattern foo-ethX
+ip link show | egrep -o '([-_.[:alnum:]]+-eth[[:digit:]]+)'
+ip link show
+*** Killing stale mininet node processes
+pkill -9 -f mininet:
+*** Shutting down stale tunnels
+pkill -9 -f Tunnel=Ethernet
+pkill -9 -f .ssh/mn
+rm -f ~/.ssh/mn/*
+*** Cleanup complete.
+[05/04/26]seed@VM:~/CMPE210-Project-main$ sudo mn --topo single,4 --controller remote,ip=127.0.0.1 --switch ovsk,protocols=OpenFlow13 --mac
+*** Creating network
+*** Adding controller
+Unable to contact the remote controller at 127.0.0.1:6653
+Unable to contact the remote controller at 127.0.0.1:6633
+Setting remote controller to 127.0.0.1:6653
+*** Adding hosts:
+h1 h2 h3 h4 
+*** Adding switches:
+s1 
+*** Adding links:
+(h1, s1) (h2, s1) (h3, s1) (h4, s1) 
+*** Configuring hosts
+h1 h2 h3 h4 
+*** Starting controller
+c0 
+*** Starting 1 switches
+s1 ...
+*** Starting CLI:
+mininet> pingall
+*** Ping: testing ping reachability
+h1 -> h2 h3 h4 
+h2 -> h1 h3 h4 
+h3 -> h1 h2 h4 
+h4 -> h1 h2 h3 
+*** Results: 0% dropped (12/12 received)
+mininet> h2 python3 -m http.server 8000 --bind 10.0.0.2 &
+mininet> h3 python3 -m http.server 8000 --bind 10.0.0.3 &
+mininet> h4 python3 -m http.server 8000 --bind 10.0.0.4 &
+mininet> h1 curl --no-keepalive -m 5 10.0.0.100:8000
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".gitignore">.gitignore</a></li>
+<li><a href="__pycache__/">__pycache__/</a></li>
+<li><a href="benchmark_latency.sh">benchmark_latency.sh</a></li>
+<li><a href="benchmark_ping.sh">benchmark_ping.sh</a></li>
+<li><a href="benchmark_throughput.sh">benchmark_throughput.sh</a></li>
+<li><a href="lb_least_loaded.py">lb_least_loaded.py</a></li>
+<li><a href="lb_nat_rr.py">lb_nat_rr.py</a></li>
+<li><a href="ll_latency.csv">ll_latency.csv</a></li>
+<li><a href="measure_drops.sh">measure_drops.sh</a></li>
+<li><a href="ml_lb.py">ml_lb.py</a></li>
+<li><a href="README%20old.md">README old.md</a></li>
+<li><a href="README.md">README.md</a></li>
+<li><a href="rr_latency.csv">rr_latency.csv</a></li>
+<li><a href="run_all.sh">run_all.sh</a></li>
+<li><a href="run_benchmark.py">run_benchmark.py</a></li>
+<li><a href="stop_ml_env.sh">stop_ml_env.sh</a></li>
+<li><a href="summarize_latency.py">summarize_latency.py</a></li>
+<li><a href="train_model.py">train_model.py</a></li>
+</ul>
+<hr>
+</body>
+</html>
+mininet> h1 curl --no-keepalive -m 5 10.0.0.100:8000
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".gitignore">.gitignore</a></li>
+<li><a href="__pycache__/">__pycache__/</a></li>
+<li><a href="benchmark_latency.sh">benchmark_latency.sh</a></li>
+<li><a href="benchmark_ping.sh">benchmark_ping.sh</a></li>
+<li><a href="benchmark_throughput.sh">benchmark_throughput.sh</a></li>
+<li><a href="lb_least_loaded.py">lb_least_loaded.py</a></li>
+<li><a href="lb_nat_rr.py">lb_nat_rr.py</a></li>
+<li><a href="ll_latency.csv">ll_latency.csv</a></li>
+<li><a href="measure_drops.sh">measure_drops.sh</a></li>
+<li><a href="ml_lb.py">ml_lb.py</a></li>
+<li><a href="README%20old.md">README old.md</a></li>
+<li><a href="README.md">README.md</a></li>
+<li><a href="rr_latency.csv">rr_latency.csv</a></li>
+<li><a href="run_all.sh">run_all.sh</a></li>
+<li><a href="run_benchmark.py">run_benchmark.py</a></li>
+<li><a href="stop_ml_env.sh">stop_ml_env.sh</a></li>
+<li><a href="summarize_latency.py">summarize_latency.py</a></li>
+<li><a href="train_model.py">train_model.py</a></li>
+</ul>
+<hr>
+</body>
+</html>
+mininet> h1 curl --no-keepalive -m 5 10.0.0.100:8000
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".gitignore">.gitignore</a></li>
+<li><a href="__pycache__/">__pycache__/</a></li>
+<li><a href="benchmark_latency.sh">benchmark_latency.sh</a></li>
+<li><a href="benchmark_ping.sh">benchmark_ping.sh</a></li>
+<li><a href="benchmark_throughput.sh">benchmark_throughput.sh</a></li>
+<li><a href="lb_least_loaded.py">lb_least_loaded.py</a></li>
+<li><a href="lb_nat_rr.py">lb_nat_rr.py</a></li>
+<li><a href="ll_latency.csv">ll_latency.csv</a></li>
+<li><a href="measure_drops.sh">measure_drops.sh</a></li>
+<li><a href="ml_lb.py">ml_lb.py</a></li>
+<li><a href="README%20old.md">README old.md</a></li>
+<li><a href="README.md">README.md</a></li>
+<li><a href="rr_latency.csv">rr_latency.csv</a></li>
+<li><a href="run_all.sh">run_all.sh</a></li>
+<li><a href="run_benchmark.py">run_benchmark.py</a></li>
+<li><a href="stop_ml_env.sh">stop_ml_env.sh</a></li>
+<li><a href="summarize_latency.py">summarize_latency.py</a></li>
+<li><a href="train_model.py">train_model.py</a></li>
+</ul>
+<hr>
+</body>
+</html>
+mininet> h1 curl --no-keepalive 10.0.0.100:8000
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".gitignore">.gitignore</a></li>
+<li><a href="__pycache__/">__pycache__/</a></li>
+<li><a href="benchmark_latency.sh">benchmark_latency.sh</a></li>
+<li><a href="benchmark_ping.sh">benchmark_ping.sh</a></li>
+<li><a href="benchmark_throughput.sh">benchmark_throughput.sh</a></li>
+<li><a href="lb_least_loaded.py">lb_least_loaded.py</a></li>
+<li><a href="lb_nat_rr.py">lb_nat_rr.py</a></li>
+<li><a href="ll_latency.csv">ll_latency.csv</a></li>
+<li><a href="measure_drops.sh">measure_drops.sh</a></li>
+<li><a href="ml_lb.py">ml_lb.py</a></li>
+<li><a href="README%20old.md">README old.md</a></li>
+<li><a href="README.md">README.md</a></li>
+<li><a href="rr_latency.csv">rr_latency.csv</a></li>
+<li><a href="run_all.sh">run_all.sh</a></li>
+<li><a href="run_benchmark.py">run_benchmark.py</a></li>
+<li><a href="stop_ml_env.sh">stop_ml_env.sh</a></li>
+<li><a href="summarize_latency.py">summarize_latency.py</a></li>
+<li><a href="train_model.py">train_model.py</a></li>
+</ul>
+<hr>
+</body>
+</html>
+mininet> h2 bash -lc 'mkdir -p /tmp/www && dd if=/dev/zero of=/tmp/www/bigfile.bin bs=1M count=50'
+Serving HTTP on 10.0.0.2 port 8000 (http://10.0.0.2:8000/) ...
+10.0.0.1 - - [04/May/2026 17:45:50] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:00] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:19] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:19] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+50+0 records in
+50+0 records out
+52428800 bytes (52 MB, 50 MiB) copied, 0.0763537 s, 687 MB/s
+mininet> h3 bash -lc 'mkdir -p /tmp/www && dd if=/dev/zero of=/tmp/www/bigfile.bin bs=1M count=50'
+Serving HTTP on 10.0.0.3 port 8000 (http://10.0.0.3:8000/) ...
+10.0.0.1 - - [04/May/2026 17:45:52] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:18] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:19] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:19] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+50+0 records in
+50+0 records out
+52428800 bytes (52 MB, 50 MiB) copied, 0.0722271 s, 726 MB/s
+mininet> h4 bash -lc 'mkdir -p /tmp/www && dd if=/dev/zero of=/tmp/www/bigfile.bin bs=1M count=50'
+Serving HTTP on 10.0.0.4 port 8000 (http://10.0.0.4:8000/) ...
+10.0.0.1 - - [04/May/2026 17:45:54] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:19] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:19] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:20] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+10.0.0.1 - - [04/May/2026 17:46:21] "GET / HTTP/1.1" 200 -
+50+0 records in
+50+0 records out
+52428800 bytes (52 MB, 50 MiB) copied, 0.0618209 s, 848 MB/s
+mininet> h2 bash -lc 'cd /tmp/www && python3 -m http.server 8000 --bind 10.0.0.2' &
+mininet> h3 bash -lc 'cd /tmp/www && python3 -m http.server 8000 --bind 10.0.0.3' &
+mininet> h4 bash -lc 'cd /tmp/www && python3 -m http.server 8000 --bind 10.0.0.4' &
+mininet> h1 bash -lc 'for i in $(seq 1 20); do curl --no-keepalive -o /dev/null -s -w "%{time_total}\n" http://10.0.0.100:8000/bigfile.bin; done'
+0.007418
+0.006735
+0.004573
+0.005923
+0.008351
+0.004800
+0.005636
+0.004552
+0.004814
+0.005191
+0.006449
+0.003302
+0.002725
+0.005210
+0.005237
+0.007617
+0.011795
+0.003845
+0.007678
+0.007074
+mininet> 
