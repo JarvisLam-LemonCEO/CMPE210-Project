@@ -178,15 +178,21 @@ Use machine learning to dynamically select the best backend server based on runt
 
 ---
 
-## Train Model
+## Collect Data
+You have to run the Step 2 Round Robin Load Balancer.
+Then, run the run_benchmark.py
+```bash
+python3 run_benchmark.py
+```
 
+## Train Model
 ```bash
 python3 train_model.py
 ```
 The script trains multiple regression models:
--Decision Tree Regressor
--Random Forest Regressor
--Ridge Regression
+- Decision Tree Regressor
+- Random Forest Regressor
+- Ridge Regression
 It evaluates each model using RMSE (Root Mean Square Error)
 The best-performing model is selected based on RMSE.
 
@@ -196,15 +202,14 @@ The trained model is saved as:
 model.joblib
 ```
 ## Run ML Controller
-
 ```bash
 ryu-manager ml_lb.py
 ```
 
 The controller uses the trained model to:
-Predict the latency of each backend server
-Select the backend with the lowest predicted latency
-Additional penalties are applied to prevent load imbalance
+- Predict the latency of each backend server
+- Select the backend with the lowest predicted latency
+- Additional penalties are applied to prevent load imbalance
 
 ## Test
 ```bash
@@ -218,9 +223,9 @@ Run multiple times to observe dynamic backend selection.
 Instead of using fixed strategies such as Round Robin or Least Loaded,
 the ML-based approach predicts performance using real-time features, including:
 
--traffic rate
--active flows
--load imbalance
+- traffic rate
+- active flows
+- load imbalance
 
 This enables more adaptive and efficient load balancing decisions.
 
@@ -250,6 +255,7 @@ under LB controllers.
 ```bash
 ./benchmark_latency.sh rr_latency.csv 20
 ./benchmark_latency.sh ll_latency.csv 20
+./benchmark_latency.sh ml_latency.csv 20
 ```
 
 
@@ -258,6 +264,7 @@ under LB controllers.
 ```bash
 python3 summarize_latency.py rr_latency.csv
 python3 summarize_latency.py ll_latency.csv
+python3 summarize_latency.py ml_latency.csv
 ```
 
 
