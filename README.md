@@ -1,6 +1,7 @@
 # SJSU Spring 2026 CMPE 210 Course Project
 Members:
 1. Hei Lam (The whole project)
+
 Note: Weiyu Wang (Only Step 4 Machine learning part)
 
 # Demo
