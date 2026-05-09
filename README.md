@@ -2,7 +2,7 @@
 Members:
 1. Hei Lam (The whole project)
 
-Note: Weiyu Wang (Only Step 4 Machine learning part)
+Note: Weiyu Wang (Only contributed to Step 4 Machine learning part and has quit the whole project)
 
 # Demo
 Video: https://youtu.be/dMBxQMmbR9g
